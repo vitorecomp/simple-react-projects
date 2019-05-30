@@ -2,10 +2,7 @@
 const app = {
 	title: 'Indesion App',
 	subtitle: 'This is a test',
-	options: [
-		'one',
-		'two'
-	]
+	options: []
 }
 
 const optionsRender = (app) => {
@@ -20,17 +17,63 @@ const optionsRender = (app) => {
 		</ol>
 	</div>
 }
-//html template
-const template = (
-	<div>
-		<h1>{app.title}</h1>
-		{app.subtitle ? <p> {app.subtitle} </p> : undefined}
-		{optionsRender(app)}
-	</div>
-)
 
+let count = 0;
+const sum = function () {
+	count++
+	rederCountApp()
+}
+const sub = function () {
+	count--
+	rederCountApp()
+}
+const reset = function () {
+	count = 0;
+	rederCountApp()
+}
 
+const onFormSumit = (e) => {
+	e.preventDefault()
+	const option = e.target.elements.option.value
+	if (option) {
+		app.options.push(option)
+	}
+	rederCountApp()
+}
 
-//render
-var appRoot = document.getElementById('app')
-ReactDOM.render(template, appRoot)
+const resetApp = function () {
+	app.options = []
+	rederCountApp()
+}
+
+const rederCountApp = () => {
+	const templateOld = (
+		<div>
+			<h1>Count: {count}</h1>
+			<button onClick={sum}> +1</button>
+			<button onClick={sub}> -1</button>
+			<button onClick={reset}>reset</button>
+		</div>
+	)
+
+	//html template
+	const template = (
+		<div>
+			<h1>{app.title}</h1>
+			{app.subtitle ? <p> {app.subtitle} </p> : undefined}
+			<p>{app.options.length}</p>
+			{optionsRender(app)}
+			<form onSubmit={onFormSumit} >
+				<input type="text" name="option"></input>
+				<button>Add Option</button>
+			</form>
+			<button onClick={resetApp}> reset </button>
+		</div>
+	)
+
+	//render
+	var appRoot = document.getElementById('app')
+	ReactDOM.render(template, appRoot)
+}
+
+rederCountApp()

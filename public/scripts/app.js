@@ -4,7 +4,7 @@
 var app = {
 	title: 'Indesion App',
 	subtitle: 'This is a test',
-	options: ['one', 'two']
+	options: []
 };
 
 var optionsRender = function optionsRender(app) {
@@ -38,25 +38,104 @@ var optionsRender = function optionsRender(app) {
 		)
 	);
 };
-//html template
-var template = React.createElement(
-	'div',
-	null,
-	React.createElement(
-		'h1',
-		null,
-		app.title
-	),
-	app.subtitle ? React.createElement(
-		'p',
-		null,
-		' ',
-		app.subtitle,
-		' '
-	) : undefined,
-	optionsRender(app)
-);
 
-//render
-var appRoot = document.getElementById('app');
-ReactDOM.render(template, appRoot);
+var count = 0;
+var sum = function sum() {
+	count++;
+	rederCountApp();
+};
+var sub = function sub() {
+	count--;
+	rederCountApp();
+};
+var reset = function reset() {
+	count = 0;
+	rederCountApp();
+};
+
+var onFormSumit = function onFormSumit(e) {
+	e.preventDefault();
+	var option = e.target.elements.option.value;
+	if (option) {
+		app.options.push(option);
+	}
+	rederCountApp();
+};
+
+var resetApp = function resetApp() {
+	app.options = [];
+	rederCountApp();
+};
+
+var rederCountApp = function rederCountApp() {
+	var templateOld = React.createElement(
+		'div',
+		null,
+		React.createElement(
+			'h1',
+			null,
+			'Count: ',
+			count
+		),
+		React.createElement(
+			'button',
+			{ onClick: sum },
+			' +1'
+		),
+		React.createElement(
+			'button',
+			{ onClick: sub },
+			' -1'
+		),
+		React.createElement(
+			'button',
+			{ onClick: reset },
+			'reset'
+		)
+	);
+
+	//html template
+	var template = React.createElement(
+		'div',
+		null,
+		React.createElement(
+			'h1',
+			null,
+			app.title
+		),
+		app.subtitle ? React.createElement(
+			'p',
+			null,
+			' ',
+			app.subtitle,
+			' '
+		) : undefined,
+		React.createElement(
+			'p',
+			null,
+			app.options.length
+		),
+		optionsRender(app),
+		React.createElement(
+			'form',
+			{ onSubmit: onFormSumit },
+			React.createElement('input', { type: 'text', name: 'option' }),
+			React.createElement(
+				'button',
+				null,
+				'Add Option'
+			)
+		),
+		React.createElement(
+			'button',
+			{ onClick: resetApp },
+			' reset '
+		)
+	);
+
+	//render
+	var appRoot = document.getElementById('app');
+	ReactDOM.render(template, appRoot);
+};
+
+rederCountApp();
