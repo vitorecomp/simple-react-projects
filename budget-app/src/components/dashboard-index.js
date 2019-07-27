@@ -1,11 +1,15 @@
 import React from 'react'
 
 import ExpenseList from './expense-list'
+import ExpenseFilter from './expense-list-filters'
 
 const DashPage = () => (
 	<div>
 		<h1>Dash </h1>
-		<ExpenseList />
+		<div>
+			<ExpenseFilter />
+			<ExpenseList />
+		</div>
 	</div>
 )
 

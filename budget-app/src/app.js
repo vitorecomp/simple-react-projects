@@ -14,9 +14,11 @@ const store = storeCreator()
 
 //test data
 import { addExpense } from './actions/expenses.actions'
-store.dispatch(addExpense({ description: 'Water bill', amount: 20, createdAt: 200 }))
-store.dispatch(addExpense({ description: 'Gas bill', amount: 201, createdAt: 1000 }))
-store.dispatch(addExpense({ description: 'Gas bill', amount: 21, createdAt: 1001 }))
+import moment from 'moment'
+
+store.dispatch(addExpense({ description: 'Water bill', amount: 20, createdAt: moment().valueOf() }))
+store.dispatch(addExpense({ description: 'Gas bill', amount: 201, createdAt: moment().valueOf() }))
+store.dispatch(addExpense({ description: 'Gas bill', amount: 21, createdAt: moment().valueOf() }))
 
 
 
