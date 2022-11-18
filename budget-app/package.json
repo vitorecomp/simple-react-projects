@@ -54,7 +54,7 @@
 		"node-sass": "^4.12.0",
 		"normalize.css": "^8.0.1",
 		"react-test-renderer": "^16.8.6",
-		"webpack-cli": "^3.3.4",
+		"webpack-cli": "^3.3.12",
 		"webpack-dev-server": "^3.7.2"
 	}
 }
